@@ -689,12 +689,49 @@
     .exec-cta-row a { text-align: center; }
   }
 
+  /* ── Package Calculator ── */
+  .custom-pkg-calc { background: #f8faff; border: 2px solid #1e3d78; border-radius: 14px; padding: 24px 28px; margin-bottom: 24px; }
+  .calc-title { font-size: 16px; font-weight: 800; color: #1a2e5a; margin-bottom: 4px; }
+  .calc-subtitle { font-size: 13px; color: #4a5c80; margin-bottom: 16px; }
+  .calc-items { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+  .calc-item { display: flex; align-items: center; gap: 10px; font-size: 14px; color: #1a2e5a; cursor: pointer; padding: 9px 12px; border-radius: 8px; transition: background 0.15s; user-select: none; }
+  .calc-item:hover { background: #eef2fb; }
+  .calc-base { background: #e8edf5; cursor: default; font-weight: 600; }
+  .calc-item input[type="checkbox"] { width: 17px; height: 17px; accent-color: #1e3d78; flex-shrink: 0; cursor: pointer; }
+  .calc-price { margin-right: auto; font-weight: 700; color: #1e3d78; font-size: 13px; white-space: nowrap; padding-right: 8px; }
+  .calc-total-row { display: flex; justify-content: space-between; align-items: center; font-size: 15px; font-weight: 700; color: #1a2e5a; border-top: 2px solid #dce4f5; padding-top: 14px; margin-bottom: 14px; }
+  .calc-total-num { font-size: 24px; font-weight: 800; color: #1e3d78; }
+  .calc-confirm-btn { width: 100%; background: linear-gradient(135deg, #1a2e5a, #1e3d78); color: #fff; border: none; border-radius: 50px; padding: 14px 24px; font-family: 'Heebo', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: opacity 0.2s; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .calc-confirm-btn:hover { opacity: 0.88; }
+
+  /* ── Digital Signature ── */
+  #sig-canvas { border: 1.5px dashed #1e3d78; border-radius: 8px; cursor: crosshair; display: block; width: 100%; height: 120px; touch-action: none; background: #fafcff; margin-bottom: 8px; }
+  .sig-canvas-controls { display: flex; gap: 8px; margin-bottom: 10px; }
+  .sig-canvas-controls button { flex: 1; padding: 9px 12px; border-radius: 8px; font-family: 'Heebo', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: opacity 0.15s; }
+  .sig-clear-btn { background: #f0f2f8; color: #1a2e5a; }
+  .sig-confirm-btn { background: #1e3d78; color: #fff; }
+  .sig-canvas-controls button:hover { opacity: 0.82; }
+  .sig-preview-img { max-width: 100%; height: 80px; object-fit: contain; display: none; border: 1px solid #e0e8f5; border-radius: 6px; padding: 4px; margin-bottom: 8px; background: #fff; }
+  .anat-sig-display { font-family: 'Brush Script MT', cursive; font-size: 34px; color: #1a2e5a; min-height: 54px; display: flex; align-items: center; margin-bottom: 2px; }
+  .pdf-save-wrap { display: none; text-align: center; margin-top: 24px; padding: 20px 16px; background: #f0f6ff; border-radius: 12px; border: 1px solid #dce4f5; }
+  .pdf-save-btn { background: linear-gradient(135deg, #1a2e5a, #1e3d78); color: #fff; border: none; border-radius: 50px; padding: 16px 36px; font-family: 'Heebo', sans-serif; font-size: 16px; font-weight: 700; cursor: pointer; -webkit-print-color-adjust: exact; print-color-adjust: exact; margin-bottom: 10px; display: inline-block; }
+  .pdf-save-btn:hover { opacity: 0.9; }
+  .pdf-hint { font-size: 12px; color: #888; margin: 0; }
+
+  @media (max-width: 768px) {
+    .calc-item { font-size: 13px; padding: 8px 10px; }
+    .calc-total-num { font-size: 20px; }
+    #sig-canvas { height: 100px; }
+    .pdf-save-btn { width: 100%; }
+  }
+
   @media print {
     body { background: #fff; }
     .page { box-shadow: none; }
-    .toc, .cta-big-btn, .spec-cta, .section-divider, .exec-cta-row { display: none; }
+    .toc, .cta-big-btn, .spec-cta, .section-divider, .exec-cta-row, .custom-pkg-calc, #sig-canvas, .sig-canvas-controls, .pdf-save-wrap { display: none !important; }
     #pricing, .section-divider, #spec { display: block !important; }
     .spec-hidden, .pricing-hidden { display: block !important; }
+    .sig-preview-img { display: block !important; }
     #spec, #pricing { background: #fff; }
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
@@ -1352,6 +1389,45 @@
         </div>
       </div>
 
+      <!-- Package Calculator -->
+      <div class="prop-section">
+        <div class="custom-pkg-calc">
+          <div class="calc-title">🛠️ בנה חבילה מותאמת</div>
+          <div class="calc-subtitle">בחר בסיסית ועוד רכיבים לפי הצורך - הסכום יתעדכן אוטומטית</div>
+          <div class="calc-items">
+            <label class="calc-item calc-base">
+              <input type="checkbox" checked disabled> חבילה בסיסית - כולל CRM + צ'אטבוט + 4 ערוצים + דשבורד + Calendar
+              <span class="calc-price">12,000 ₪</span>
+            </label>
+            <label class="calc-item">
+              <input type="checkbox" class="addon-cb" data-price="3000" data-name="AI מכירתי"> AI מכירתי - cross-sell חכם, מיון לידים לפי פוטנציאל
+              <span class="calc-price">3,000 ₪</span>
+            </label>
+            <label class="calc-item">
+              <input type="checkbox" class="addon-cb" data-price="2500" data-name="חוזים דיגיטליים"> חוזים דיגיטליים - מילוי אוטומטי + חתימה דיגיטלית
+              <span class="calc-price">2,500 ₪</span>
+            </label>
+            <label class="calc-item">
+              <input type="checkbox" class="addon-cb" data-price="2000" data-name="שאלון חישוב זכויות"> שאלון חישוב זכויות - שאלון מובנה + פלט בוואטסאפ
+              <span class="calc-price">2,000 ₪</span>
+            </label>
+            <label class="calc-item">
+              <input type="checkbox" class="addon-cb" data-price="1800" data-name="ניהול תשלומים"> ניהול תשלומים (New Pay) - מעקב + תזכורות + עדכון CRM
+              <span class="calc-price">1,800 ₪</span>
+            </label>
+            <label class="calc-item">
+              <input type="checkbox" class="addon-cb" data-price="1500" data-name="אינטגרציה WeChat"> אינטגרציה WeChat - ערוץ נוסף לדוברי סינית
+              <span class="calc-price">1,500 ₪</span>
+            </label>
+          </div>
+          <div class="calc-total-row">
+            <span>סה"כ לתשלום:</span>
+            <span id="calc-total" class="calc-total-num">12,000 ₪</span>
+          </div>
+          <button class="calc-confirm-btn" onclick="selectCustomPackage()">✓ בחר חבילה מותאמת זו והמשך לחתימה</button>
+        </div>
+      </div>
+
       <!-- Add-ons pricing -->
       <div class="prop-section">
         <div class="prop-section-title">רכיבים נפרדים - הוספה לחבילת בסיס</div>
@@ -1519,13 +1595,25 @@
         <div class="sig-box">
           <div class="sig-label">חבילה נבחרת: <span id="selected-package">_______________________</span></div>
           <div class="sig-label">חתימת הלקוח - יוסי קרוהן / רון אובוז</div>
-          <div class="sig-label">תאריך: ___________</div>
-          <div class="sig-line">&nbsp;</div>
+          <canvas id="sig-canvas"></canvas>
+          <div class="sig-canvas-controls">
+            <button class="sig-clear-btn" onclick="clearSignature()">🗑 מחק</button>
+            <button class="sig-confirm-btn" onclick="confirmSignature()">אשר חתימה ✓</button>
+          </div>
+          <img id="sig-preview" class="sig-preview-img" alt="חתימה">
+          <div class="sig-label">תאריך: <span id="sig-date">___________</span></div>
         </div>
         <div class="sig-box">
           <div class="sig-label">חתימת נותנת השירות</div>
+          <div class="anat-sig-display">ענת</div>
           <div class="sig-line">ענת רפאלי פלד - AP Automations</div>
+          <div class="sig-label">תאריך: 28/03/2026</div>
         </div>
+      </div>
+
+      <div class="pdf-save-wrap" id="pdf-save-wrap">
+        <button class="pdf-save-btn" onclick="window.print()">💾 שמור את המסמך החתום כ-PDF</button>
+        <p class="pdf-hint">בחלון שנפתח - שנה את היעד ל-"שמור כ-PDF" ולחץ שמור</p>
       </div>
 
     </div>
@@ -1601,6 +1689,120 @@
       scrollTo(sigSection);
     });
   });
+
+  // ── Package Calculator ──
+  function updateCalcTotal() {
+    var total = 12000;
+    document.querySelectorAll('.addon-cb:checked').forEach(function(cb) {
+      total += parseInt(cb.getAttribute('data-price'));
+    });
+    document.getElementById('calc-total').textContent = total.toLocaleString('he-IL') + ' ₪';
+  }
+
+  function selectCustomPackage() {
+    var total = 12000;
+    var items = ['חבילה בסיסית'];
+    document.querySelectorAll('.addon-cb:checked').forEach(function(cb) {
+      total += parseInt(cb.getAttribute('data-price'));
+      items.push(cb.getAttribute('data-name'));
+    });
+    var summary = items.join(' + ') + ' - ' + total.toLocaleString('he-IL') + ' ₪';
+    revealPricing();
+    var field = document.getElementById('selected-package');
+    if (field) { field.textContent = summary; field.style.fontWeight = '700'; field.style.color = '#1e3d78'; }
+    scrollTo(document.querySelector('.signature-section'));
+  }
+
+  document.querySelectorAll('.addon-cb').forEach(function(cb) {
+    cb.addEventListener('change', updateCalcTotal);
+  });
+
+  // ── Digital Signature Canvas ──
+  var sigCanvas = document.getElementById('sig-canvas');
+  var sigCtx = sigCanvas ? sigCanvas.getContext('2d') : null;
+  var isDrawing = false;
+  var sigStarted = false;
+
+  function setupCanvas() {
+    if (!sigCanvas) return;
+    var ratio = window.devicePixelRatio || 1;
+    var w = sigCanvas.offsetWidth || 320;
+    sigCanvas.width = w * ratio;
+    sigCanvas.height = 120 * ratio;
+    sigCanvas.style.height = '120px';
+    sigCtx.scale(ratio, ratio);
+    sigCtx.strokeStyle = '#1a2e5a';
+    sigCtx.lineWidth = 2.2;
+    sigCtx.lineCap = 'round';
+    sigCtx.lineJoin = 'round';
+  }
+
+  function getPos(e) {
+    var rect = sigCanvas.getBoundingClientRect();
+    if (e.touches) {
+      return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
+    }
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+
+  function startDraw(e) {
+    e.preventDefault();
+    isDrawing = true;
+    var pos = getPos(e);
+    sigCtx.beginPath();
+    sigCtx.moveTo(pos.x, pos.y);
+    if (!sigStarted) {
+      sigStarted = true;
+      var d = new Date();
+      document.getElementById('sig-date').textContent = d.toLocaleDateString('he-IL');
+    }
+  }
+
+  function draw(e) {
+    if (!isDrawing) return;
+    e.preventDefault();
+    var pos = getPos(e);
+    sigCtx.lineTo(pos.x, pos.y);
+    sigCtx.stroke();
+  }
+
+  function endDraw() { isDrawing = false; }
+
+  if (sigCanvas) {
+    setupCanvas();
+    window.addEventListener('resize', setupCanvas);
+    sigCanvas.addEventListener('mousedown', startDraw);
+    sigCanvas.addEventListener('mousemove', draw);
+    sigCanvas.addEventListener('mouseup', endDraw);
+    sigCanvas.addEventListener('mouseleave', endDraw);
+    sigCanvas.addEventListener('touchstart', startDraw, { passive: false });
+    sigCanvas.addEventListener('touchmove', draw, { passive: false });
+    sigCanvas.addEventListener('touchend', endDraw);
+  }
+
+  function clearSignature() {
+    if (!sigCtx) return;
+    var ratio = window.devicePixelRatio || 1;
+    sigCtx.clearRect(0, 0, sigCanvas.width / ratio, sigCanvas.height / ratio);
+    sigStarted = false;
+    document.getElementById('sig-date').textContent = '___________';
+    document.getElementById('sig-preview').style.display = 'none';
+    sigCanvas.style.display = 'block';
+    document.querySelector('.sig-canvas-controls').style.display = 'flex';
+    document.getElementById('pdf-save-wrap').style.display = 'none';
+  }
+
+  function confirmSignature() {
+    if (!sigStarted) { alert('אנא חתמו בתיבה לפני האישור'); return; }
+    var dataUrl = sigCanvas.toDataURL('image/png');
+    var preview = document.getElementById('sig-preview');
+    preview.src = dataUrl;
+    preview.style.display = 'block';
+    sigCanvas.style.display = 'none';
+    document.querySelector('.sig-canvas-controls').style.display = 'none';
+    document.getElementById('pdf-save-wrap').style.display = 'block';
+    scrollTo(document.getElementById('pdf-save-wrap'));
+  }
 </script>
 </body>
 </html>
